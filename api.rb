@@ -4,10 +4,10 @@ require 'redis'
 REDIS = Redis.new
 
 module GrURL
-	class API < Grape::API
-	format :json
+  class API < Grape::API
+    format :json
 
-		get ':key' do
+    get ':key' do
       url = REDIS.get("shortened-#{params[:key]}")
       incr("clicks-#{params[:key]}")
       redirect url
@@ -32,8 +32,8 @@ module GrURL
         REDIS.set("shortened-#{key}", params[:url])
         return { key: key, short_url: "/#{key}", long_url: params[:url] }
       end
-		end
-	end
+    end
+  end
 end
 
 private
